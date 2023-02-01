@@ -12,6 +12,8 @@ import i18n from '@/helpers/i18n'
 import languageMenu from '@/menus/language'
 import sendHelp from '@/handlers/help'
 import startMongo from '@/helpers/startMongo'
+import crawlData, { sendToProcess, updateProcessed } from './helpers/crawler'
+import handleReply from './handlers/handleReply'
 
 async function runApp() {
   console.log('Starting app...')
@@ -25,17 +27,22 @@ async function runApp() {
     .use(attachUser)
     .use(i18n.middleware())
     .use(configureI18n)
+    .use(updateProcessed)
+    .use(crawlData)
     // Menus
     .use(languageMenu)
   // Commands
   bot.command(['help', 'start'], sendHelp)
   bot.command('language', handleLanguage)
+  bot.command('get', sendToProcess)
+  bot.on(':text', handleReply)
   // Errors
   bot.catch(console.error)
   // Start bot
   await bot.init()
   run(bot)
   console.info(`Bot ${bot.botInfo.username} is up and running`)
+  // crawlData(bot)
 }
 
 void runApp()

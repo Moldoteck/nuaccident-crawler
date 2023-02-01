@@ -6,6 +6,15 @@ export class User {
   id!: number
   @prop({ required: true, default: 'en' })
   language!: string
+
+  @prop({ required: false, default: [] })
+  processed!: string[]
+
+  @prop({ required: false, default: [] })
+  toprocess!: string[]
+
+  @prop({ required: true, default: false })
+  updated!: boolean
 }
 
 const UserModel = getModelForClass(User)
