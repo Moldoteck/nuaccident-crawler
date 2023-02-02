@@ -81,6 +81,11 @@ export async function downloadFileNews(url: string) {
   return undefined
 }
 
+export async function handleCount(ctx: Context) {
+  if (ctx.from?.id.toString() == env.ADMIN_ID) {
+    ctx.reply(`There are ${ctx.dbuser.toprocess.length} news to process`)
+  }
+}
 export default async function handleReply(ctx: Context) {
   if (
     ctx.msg &&

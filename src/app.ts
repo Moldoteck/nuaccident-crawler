@@ -13,7 +13,7 @@ import languageMenu from '@/menus/language'
 import sendHelp from '@/handlers/help'
 import startMongo from '@/helpers/startMongo'
 import crawlData, { sendToProcess, updateProcessed } from './helpers/crawler'
-import handleReply from './handlers/handleReply'
+import handleReply, { handleCount } from './handlers/handleReply'
 
 async function runApp() {
   console.log('Starting app...')
@@ -35,6 +35,7 @@ async function runApp() {
   bot.command(['help', 'start'], sendHelp)
   bot.command('language', handleLanguage)
   bot.command('get', sendToProcess)
+  bot.command('cnt', handleCount)
   bot.on(':text', handleReply)
   // Errors
   bot.catch(console.error)
